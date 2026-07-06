@@ -9,7 +9,7 @@ title: CLI Reference
 leafwiki_id: v4RXqlfDg
 leafwiki_title: CLI Reference
 leafwiki_created_at: "2026-07-05T03:53:59.241448744Z"
-leafwiki_updated_at: "2026-07-05T04:57:55.512267612Z"
+leafwiki_updated_at: "2026-07-05T22:57:08.989899173Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -212,13 +212,33 @@ incus-compose exec [options] SERVICE COMMAND [ARGS...]
 | `--index`         | Index of the container if service has multiple replicas (default: 0)   |
 | `-T`, `--no-tty`  | Disable pseudo-TTY allocation                                          |
 | `--privileged`    | Give extended privileges to the process (accepted but not implemented) |
-| `-u`, `--user`    | Run the command as this user                                           |
-| `-g`, `--group`   | Run the command as this group                                          |
+| `-u`, `--user`    | Run the command as this user (default: the instance's UID)             |
+| `-g`, `--group`   | Run the command as this group (default: the instance's GID)            |
 | `-w`, `--workdir` | Path to workdir directory for this command                             |
 
 `exec` shells out to your local `incus` client and targets the instance via
 `INCUS_PROJECT`. It uses your local Incus remote configuration (`incus remote` /
 `INCUS_REMOTE`), not a connection configured through `INCUS_COMPOSE_URL`.
+
+Like `docker compose exec`, the command runs as the instance's user and group by
+default — the image's `oci.uid` / `oci.gid`, or the numeric IDs from the service
+[`user:`](/compose-compatibility#user) override. Pass `--user` / `--group` to run
+as someone else:
+
+```bash
+incus-compose exec web id             # runs as the instance's user (e.g. 1000:1000)
+incus-compose exec --user 0 web id    # runs as root
+```
+
+The command and its arguments are passed to Incus verbatim, so flags with leading
+dashes work without escaping:
+
+```bash
+incus-compose exec web ls -ln /data
+incus-compose exec web sh -c 'echo hello > /data/test.txt'
+```
+
+*Changed in 1.0.0-beta.22*: exec uses the instances UID/GID by default.
 
 ## ps
 

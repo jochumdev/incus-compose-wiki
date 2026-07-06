@@ -9,7 +9,7 @@ title: Getting Started
 leafwiki_id: OLgX3_BvR
 leafwiki_title: Getting Started
 leafwiki_created_at: "2026-07-05T03:53:59.722788933Z"
-leafwiki_updated_at: "2026-07-05T04:58:05.613998261Z"
+leafwiki_updated_at: "2026-07-06T00:08:18.931182181Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -20,7 +20,7 @@ incus-compose lets you run your existing `compose.yaml` files directly on Incus 
 
 ## Prerequisites
 
-- Incus 6.3+ installed and running
+- Incus 7.0+ installed and running
 - Access to an Incus server (local or remote)
 - `podman` or `docker` for image building (see [Builds](/builds))
 

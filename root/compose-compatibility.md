@@ -9,7 +9,7 @@ title: Compose Compatibility
 leafwiki_id: 9dRX3lBvR
 leafwiki_title: Compose Compatibility
 leafwiki_created_at: "2026-07-05T03:53:59.388277193Z"
-leafwiki_updated_at: "2026-07-05T04:58:05.613998261Z"
+leafwiki_updated_at: "2026-07-05T23:57:35.404843609Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -57,6 +57,7 @@ The override file follows normal Compose merge rules. For example, `!reset []` c
 - `image` - OCI images from any registry
 - `command` - Override container command
 - `working_dir` - Set working directory
+- `user` - Run the container process as a specific UID/GID (numeric only, see below)
 - `environment` - Environment variables
 - `labels` - Metadata (stored as `user.*` config)
 - `depends_on` - Service dependency order
@@ -67,6 +68,29 @@ The override file follows normal Compose merge rules. For example, `!reset []` c
 - `restart` - Restart policies (`no`, `always`, `on-failure`, `unless-stopped`)
 - `x-incus` extension — pass any Incus project, network and instance option directly (see below)
 - Top-level `x-incus-compose.healthd` — configure the ic-healthd sidecar's network and Incus endpoint (see below)
+
+#### User
+
+The `user` attribute overrides the user the container process runs as, mapping to
+the image's `oci.uid` / `oci.gid`:
+
+```yaml
+services:
+  web:
+    image: docker.io/nginx:alpine
+    user: "1000:1001" # UID:GID; the GID is optional
+```
+
+incus-compose accepts only **numeric** values in `UID` or `UID:GID` form. Usernames
+and group names (e.g. `nginx` or `nginx:www-data`) are not resolved and will fail.
+
+> The [Compose Specification](https://github.com/compose-spec/compose-spec/blob/main/05-services.md#user)
+> only says `user` "overrides the user used to run the container process" and does
+> not document a value format. The `UID:GID` form is Docker's convention; we follow
+> it but restrict it to numeric IDs because there is no image passwd/group lookup at
+> translation time.
+
+*Since: 1.0.0-beta.22*
 
 #### x-incus Instance Extensions
 
@@ -79,9 +103,41 @@ services:
     x-incus:
       limits.memory: 512MB
       limits.cpu: "2"
+      security.privileged: "true"
 ```
 
 Any [Incus instance option](https://linuxcontainers.org/incus/docs/main/reference/instance_options/) is accepted.
+
+#### x-incus-compose Devices
+
+Attach raw Incus devices to a service's instances with the `x-incus-compose.devices`
+block. Each named entry is passed to Incus verbatim; the `type` key selects the
+device type and is required.
+
+```yaml
+services:
+  web:
+    image: docker.io/nginx:alpine
+    x-incus-compose:
+      devices:
+        gpu0:
+          type: gpu
+          gputype: physical
+          pci: "0000:01:00.0"
+        extra-disk:
+          type: disk
+          source: /dev/sdb
+          path: /mnt/data
+```
+
+This is an escape hatch for device types incus-compose does not model natively
+(`gpu`, `unix-char`, `usb`, ...). Compose-managed devices (`ports`, `volumes`,
+`networks`) should use their native keys. Any
+[Incus device](https://linuxcontainers.org/incus/docs/main/reference/devices/) is
+accepted; keys collide by device name, so a raw device sharing a name with a
+compose-managed one overrides it.
+
+*Since 1.0.0-beta.22*
 
 ### Projects
 
