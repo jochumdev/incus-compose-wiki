@@ -9,7 +9,7 @@ title: Health Checking (ic-healthd)
 leafwiki_id: HqRuqlfvR
 leafwiki_title: Health Checking (ic-healthd)
 leafwiki_created_at: "2026-07-05T03:54:00.008474718Z"
-leafwiki_updated_at: "2026-07-08T00:20:05.1202847Z"
+leafwiki_updated_at: "2026-07-08T03:20:42.239429531Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -66,7 +66,7 @@ user.healthcheck.interval        10s
 user.healthcheck.timeout         5s
 user.healthcheck.retries         3
 user.healthcheck.status          starting | healthy | unhealthy
-user.restart                     always | on-failure | unless-stopped
+user.healthcheck.restart         always | on-failure | unless-stopped
 ```
 
 These keys are visible in `incus config show <instance>`.
@@ -342,7 +342,7 @@ start period; `unhealthy` means it failed `retries` times.
 
 ### 2. Inspect the config keys healthd reads
 
-All inputs live in `user.healthcheck.*` (and `user.restart`). If a key is wrong,
+All inputs live in `user.healthcheck.*`. If a key is wrong,
 healthd behaves wrong - it never reads the compose file directly:
 
 ```bash
