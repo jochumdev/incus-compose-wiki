@@ -9,7 +9,7 @@ title: Home
 leafwiki_id: iyelq_Bvg
 leafwiki_title: Home
 leafwiki_created_at: "2026-07-05T03:53:58.754411983Z"
-leafwiki_updated_at: "2026-07-05T04:58:44.551010269Z"
+leafwiki_updated_at: "2026-07-09T01:34:28.196781488Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -108,7 +108,7 @@ Fixes and new features are greatly appreciated. Make sure to read our [contribut
 
 This project is inspired by [@bketelsen](https://github.com/bketelsen/incus-compose).
 Some components are adapted from [docker compose](https://github.com/docker/compose).
-The `install.sh` script is adapted from [golangci-lint](https://github.com/golangci/golangci-lint), based on the [GoReleaser](https://goreleaser.com) install-script template.
+The `install.sh` script is adapted from [golangci-lint](https://github.com/golangci/golangci-lint).
 
 This project uses AI tools as development aids (drafting, iteration, reviews, tests, and documentation).
 Architecture, constraints, and final code decisions are owned by the human committers.
