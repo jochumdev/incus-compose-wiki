@@ -9,7 +9,7 @@ title: Why Incus?
 leafwiki_id: GDzu3_fDR
 leafwiki_title: Why Incus?
 leafwiki_created_at: "2026-07-05T03:54:00.356119734Z"
-leafwiki_updated_at: "2026-07-05T04:57:39.176221753Z"
+leafwiki_updated_at: "2026-07-09T01:00:49.908914229Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -72,6 +72,20 @@ Run OCI images directly on Incus with `incus-compose`:
 | Networking     | Port mapping via iptables | Real IPs and port proxies            |
 | Storage        | Overlay filesystem        | ZFS/Btrfs with instant snapshots     |
 | Image caching  | Per-engine cache          | Global blob cache, per-project alias |
+
+## Drive It From Any Desktop
+
+Incus is client/server. The daemon is Linux-only, but the `incus` client (and
+`incus-compose`) is a cross-platform Go binary. From a Windows or macOS desktop
+you connect to a remote Linux host over HTTPS and manage **OCI app containers,
+LXC system containers, and full VMs** - all without Docker Desktop, WSL, or a
+local Linux VM.
+
+Docker Desktop cannot do this: on Windows and macOS it runs a hidden Linux VM to
+host the engine. With Incus the workload lives on real Linux infrastructure and
+your laptop is just a thin client.
+
+See [Installing on Windows](/getting-started/windows) for the client setup.
 
 ## Scale Beyond a Single Host
 

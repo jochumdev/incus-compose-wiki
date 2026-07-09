@@ -9,7 +9,7 @@ title: Getting Started
 leafwiki_id: OLgX3_BvR
 leafwiki_title: Getting Started
 leafwiki_created_at: "2026-07-05T03:53:59.722788933Z"
-leafwiki_updated_at: "2026-07-09T00:55:08.455881677Z"
+leafwiki_updated_at: "2026-07-09T01:01:52.674318509Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -116,6 +116,9 @@ release is installed.
 ### Binary
 
 Download a prebuilt archive from the [Releases Page](https://github.com/lxc/incus-compose/releases).
+
+On Windows and MacOS, incus-compose runs as a client that drives a remote Incus host over
+HTTPS - see [Installing on Windows](/getting-started/windows).
 
 ### Source
 
