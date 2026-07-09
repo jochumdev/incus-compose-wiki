@@ -3,7 +3,7 @@ tags: []
 leafwiki_id: 6qk9CMLDg
 leafwiki_title: Windows
 leafwiki_created_at: "2026-07-09T00:49:29.56776699Z"
-leafwiki_updated_at: "2026-07-09T00:51:21.007143302Z"
+leafwiki_updated_at: "2026-07-09T01:07:53.996214613Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -38,7 +38,7 @@ and rename it to `incus.exe`.
 
 ## 3. Install incus-compose
 
-Download `incus-compose_1.0.0-rc.3_windows_{amd64|arm64}.tar.gz` from the
+Download `incus-compose_1.0.0_windows_{amd64|arm64}.tar.gz` from the
 incus-compose [Releases](https://github.com/lxc/incus-compose/releases) page,
 extract it, and copy `incus-compose.exe` into `%LOCALAPPDATA%\bin`.
 
