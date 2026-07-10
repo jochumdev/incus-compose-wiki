@@ -9,7 +9,7 @@ title: CLI Reference
 leafwiki_id: v4RXqlfDg
 leafwiki_title: CLI Reference
 leafwiki_created_at: "2026-07-05T03:53:59.241448744Z"
-leafwiki_updated_at: "2026-07-10T03:02:27.658482362Z"
+leafwiki_updated_at: "2026-07-10T03:05:08.994497256Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -45,12 +45,7 @@ all.
 
 **Always off on Windows and macOS.** The cache-to-project copy happens between
 two Incus projects on the server, and Incus does not yet perform that copy
-internally - the connected client relays the bytes. incus-compose on Windows
-and macOS is always a remote HTTPS client (see
-[Installing on Windows](/getting-started/windows)), so that relay would mean
-downloading the image over the network and re-uploading it again for every
-project. To avoid that, caching is forced off on those platforms regardless of
-`--image-cache`.
+internally - the connected client relays the bytes.
 
 ## up
 
