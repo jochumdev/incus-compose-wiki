@@ -9,7 +9,7 @@ title: CLI Reference
 leafwiki_id: v4RXqlfDg
 leafwiki_title: CLI Reference
 leafwiki_created_at: "2026-07-05T03:53:59.241448744Z"
-leafwiki_updated_at: "2026-07-10T08:03:48.901137966Z"
+leafwiki_updated_at: "2026-07-10T11:16:44.874486299Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -355,12 +355,18 @@ Update incus-compose to the latest release from GitHub.
 incus-compose self-update
 ```
 
+| Option     | Description                                     |
+| ---------- | ------------------------------------------------ |
+| `--drafts` | Also consider draft releases when checking for updates |
+
 This command is only available when both conditions are met:
 
 1. The binary was built with a release version (not `latest` / development builds)
 2. The binary file is writable by the current user
 
 When available, `self-update` checks the [lxc/incus-compose](https://github.com/lxc/incus-compose) GitHub releases for a newer version matching the current OS and architecture. If a newer version is found, the binary is replaced in-place. If you are already on the latest version, no action is taken.
+
+*Changed v1.0.0: the `--drafts` option has been added*
 
 ## Docker Compose command parity
 
