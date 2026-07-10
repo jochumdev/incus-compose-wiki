@@ -3,7 +3,7 @@ tags: []
 leafwiki_id: 6qk9CMLDg
 leafwiki_title: Windows
 leafwiki_created_at: "2026-07-09T00:49:29.56776699Z"
-leafwiki_updated_at: "2026-07-09T23:36:20.943578663Z"
+leafwiki_updated_at: "2026-07-10T00:33:35.808793713Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -62,31 +62,25 @@ generate a client certificate:
 incus remote generate-certificate
 ```
 
-Print the certificate so you can copy it as text:
+## 5. Generate a token on the server and use it
 
-```powershell
-incus remote get-client-certificate
-```
-
-![get-client-certificate.png](/assets/6qk9CMLDg/get-client-certificate.png)
-
-
-## 5. Trust the certificate on the server
-
-On the **Incus server**, save the copied certificate to a file and add it to the
-trust store:
+On the server:
 
 ```bash
-# paste the certificate into hostname.crt, then:
-incus config trust add-certificate ./hostname.crt
+incus config trust add <clientname>
 ```
 
-## 6. Add the server as a remote
-
-Back on Windows, add the server and make it your default remote:
+On the client:
 
 ```powershell
-incus remote add <servername> <server-ip>
+incus remote add <servername> <serverip>
+```
+
+## 6. Make it the default and test it
+
+Make it your default remote:
+
+```powershell
 incus remote switch <servername>
 ```
 
@@ -96,6 +90,8 @@ Test the connection:
 incus list --all-projects
 ```
 
+![token-auth.png](/assets/6qk9CMLDg/token-auth.png)
+
 ## 7. Add OCI image remotes (optional)
 
 To pull container images, register the registries as Incus remotes:
@@ -103,11 +99,12 @@ To pull container images, register the registries as Incus remotes:
 ```powershell
 incus remote add --protocol oci docker.io https://docker.io
 incus remote add --protocol oci ghcr.io https://ghcr.io
+incus remote add --protocol oci registry.gitlab.com https://registry.gitlab.com
 ```
 
 ![remote-list.png](/assets/6qk9CMLDg/remote-list.png)
 
-## 8. incus-compose in action
+## incus-compose in action
 
 ![immich-up.png](/assets/6qk9CMLDg/immich-up.png)
 ![immich-exec.png](/assets/6qk9CMLDg/immich-exec.png)
