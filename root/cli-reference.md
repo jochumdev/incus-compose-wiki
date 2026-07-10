@@ -9,7 +9,7 @@ title: CLI Reference
 leafwiki_id: v4RXqlfDg
 leafwiki_title: CLI Reference
 leafwiki_created_at: "2026-07-05T03:53:59.241448744Z"
-leafwiki_updated_at: "2026-07-10T11:16:44.874486299Z"
+leafwiki_updated_at: "2026-07-10T17:21:27.143605803Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -355,9 +355,10 @@ Update incus-compose to the latest release from GitHub.
 incus-compose self-update
 ```
 
-| Option     | Description                                     |
-| ---------- | ------------------------------------------------ |
-| `--drafts` | Also consider draft releases when checking for updates |
+| Option         | Description                                          |
+| -------------- | ----------------------------------------------------- |
+| `--draft`     | Also consider draft releases when checking for updates |
+| `--pre-release` | Also consider pre-releases when checking for updates |
 
 This command is only available when both conditions are met:
 
