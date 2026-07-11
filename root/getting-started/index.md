@@ -9,7 +9,7 @@ title: Getting Started
 leafwiki_id: OLgX3_BvR
 leafwiki_title: Getting Started
 leafwiki_created_at: "2026-07-05T03:53:59.722788933Z"
-leafwiki_updated_at: "2026-07-10T08:02:55.290256966Z"
+leafwiki_updated_at: "2026-07-11T15:26:09.846853437Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -84,8 +84,17 @@ If you don't want to listen on all interfaces, set the
 
 ### OCI Image Remotes
 
+**`skopeo` must be installed on the Incus server** - Incus pulls and refreshes
+OCI images by shelling out to `skopeo` internally, so `--protocol oci` remotes
+fail without it. 
+
+The `skopeo` version matters: `1.4.1`, as packaged by Ubuntu 22.04, fails on
+non-Docker Hub image references. Confirmed working: `1.18.0` on Debian
+trixie. If your distro's package is too old, install a newer `skopeo` from
+[podman-container-tools/skopeo](https://github.com/podman-container-tools/skopeo).
+
 To pull images from a registry, add it as an Incus remote first. See
-[OCI Registry Cache](../docs/examples/oci-registry-cache/README.md) for a caching
+[OCI Registry Cache](https://github.com/lxc/incus-compose/tree/main/examples/oci-registry-cache) for a caching
 mirror setup.
 
 ```bash
