@@ -123,7 +123,7 @@ conventions of reverse proxies and DNS managers:
 > `user.label.*` instance config; consuming them needs an Incus-aware discovery
 > integration.
 
-*Changed in 1.0.0-rc.2*: labels moved from `user.<key>` to `user.label.<key>`, and the
+_Changed in 1.0.0-rc.2_: labels moved from `user.<key>` to `user.label.<key>`, and the
 `incus-compose.project` / `incus-compose.service` labels were added.
 
 #### User
@@ -147,7 +147,7 @@ and group names (e.g. `nginx` or `nginx:www-data`) are not resolved and will fai
 > it but restrict it to numeric IDs because there is no image passwd/group lookup at
 > translation time.
 
-*Since: 1.0.0-beta.22*
+_Since: 1.0.0-beta.22_
 
 #### x-incus Instance Extensions
 
@@ -194,7 +194,7 @@ This is an escape hatch for device types incus-compose does not model natively
 accepted; keys collide by device name, so a raw device sharing a name with a
 compose-managed one overrides it.
 
-*Since 1.0.0-beta.22*
+_Since 1.0.0-beta.22_
 
 ### Projects
 
@@ -383,7 +383,7 @@ and `public` becomes `eth1`. Without this flag, networks are ordered by name.
 
 If several attachments set `gateway: true`, the alphabetically last one wins.
 
-*Since: 1.0.0-beta.22*
+_Since: 1.0.0-beta.22_
 
 ### Volumes
 
@@ -535,22 +535,52 @@ Restart enforcement is handled by the ic-healthd sidecar, including
 - Service `secrets[].uid` / `secrets[].gid` - File ownership
 - Service `secrets[].mode` - File permissions (default: 0400)
 
-## Not Supported (Yet)
-
 ### Configs
 
+- `configs` - Config files pushed into the container at `/{name}` by default
+- `configs[].file` - Read config from a file
+- `configs[].content` - Inline content in the compose file
+- `configs[].environment` - Read config from an environment variable
+- Service `configs[].target` - Custom target path
+- Service `configs[].uid` / `configs[].gid` - File ownership
+- Service `configs[].mode` - File permissions (default: `0444`); the writable
+  bit is always ignored, per the compose-spec, even if an explicit mode with
+  a write bit is set
+
 ```yaml
-# Not supported
 configs:
-  my_config:
-    file: ./config.txt
+  app_config:
+    file: ./app_config.txt
+
+services:
+  app:
+    configs:
+      - app_config
+      - source: app_config
+        target: /etc/app/config.txt
+        uid: "1000"
+        gid: "1000"
+        mode: 0o440
 ```
 
-**Workaround:** Use bind mounts or secrets.
+## Not Supported (Yet)
 
-### External Secrets
+### External Secrets and Configs
 
-`secrets[].external` is not supported; only file- and environment-based secrets work.
+`secrets[].external` and `configs[].external` are not supported.
+
+In Docker Swarm, `external: true` means "this secret/config already exists —
+don't create it, just reference it by name." You'd pre-create it once (e.g.
+`docker secret create db_password ./password.txt`), and any number of
+stacks/services could then point at that same object, so rotating it means
+updating the one external secret rather than every compose file that uses it.
+
+incus-compose has no equivalent standalone "secret" or "config" resource in
+Incus to reference — it only knows how to read a `file`, inline `content`, or
+an `environment` variable and push the result into a container as a file.
+There's nothing in Incus for `external` to point _at_, so it's not a missing
+mapping to fill in later, it's a concept without a target. Use `file`,
+`content` (configs only), or `environment` instead.
 
 ### Dockerfile HEALTHCHECK
 
@@ -734,6 +764,28 @@ $ ls -ln /usr/share/nginx/html/index.html
 
 For a bind mount this must be set inline on the volume entry (see
 [x-incus Volume Extensions](#x-incus-volume-extensions)).
+
+### External Volumes
+
+**Docker Compose:** an external volume must already exist — Compose will
+never create it, and never removes it (not even with `down --volumes` /
+equivalent), since it doesn't own the volume's lifecycle.
+
+**incus-compose:** every named volume, external or not, goes through the same
+get-or-create path — reuse the Incus storage volume if it already exists,
+create it if it doesn't. There's no tracking of "this one was pre-existing."
+Concretely, that means:
+
+- A typo'd or renamed volume that would fail fast under Docker (volume not
+  found) instead silently creates a new, empty volume here.
+- `incus-compose down --volumes` deletes every storage volume tracked for the
+  project, including ones marked `external: true` — there's no protection
+  against removing a volume you intended to be pre-existing and shared with
+  something else.
+
+If you need to reference a real pre-existing Incus storage volume without
+risking it being deleted, avoid `down --volumes` for that project, or manage
+the volume directly with `incus storage volume` outside of compose.
 
 ### Instance Naming
 
