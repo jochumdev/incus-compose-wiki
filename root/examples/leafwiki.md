@@ -1,15 +1,17 @@
 ---
 tags: []
 leafwiki_id: Mn_bwcYvg
-leafwiki_title: Leafwiki
+leafwiki_title: LeafWiki
 leafwiki_created_at: "2026-07-12T02:08:27.812762163Z"
-leafwiki_updated_at: "2026-07-12T02:08:46.303887361Z"
+leafwiki_updated_at: "2026-07-12T02:12:14.157811668Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
-# leafwiki
+# LeafWiki
 
 LeafWiki — a self-hosted wiki as a single Go binary, Markdown + SQLite on disk, no external database.
+
+The page you see is a LeafWiki with a Git backup to [jochumdev/incus-compose-docs](https://github.com/jochumdev/incus-compose-docs).
 
 The files for this example are on [Github](https://github.com/lxc/incus-compose/tree/main/examples/leafwiki).
 
