@@ -3,13 +3,13 @@ tags: []
 leafwiki_id: kPmBwcLvg
 leafwiki_title: OCI Registry Cache
 leafwiki_created_at: "2026-07-12T02:09:09.313763547Z"
-leafwiki_updated_at: "2026-07-12T02:09:30.712992512Z"
+leafwiki_updated_at: "2026-07-12T02:54:03.181203711Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
 # OCI Registry Cache
 
-This fixture runs three [distribution](https://github.com/distribution/distribution) registry instances as pull-through caches, one per upstream registry. Incus remotes are then reconfigured to point at these local caches instead of the real upstream endpoints, so container images are fetched once and served locally on subsequent pulls.
+This example runs three [distribution](https://github.com/distribution/distribution) registry instances as pull-through caches, one per upstream registry. Incus remotes are then reconfigured to point at these local caches instead of the real upstream endpoints, so container images are fetched once and served locally on subsequent pulls.
 
 | Service           | Upstream                       | Static IP           |
 | ----------------- | ------------------------------ | ------------------- |
