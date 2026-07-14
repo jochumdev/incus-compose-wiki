@@ -7,13 +7,14 @@ leafwiki_updated_at: "2026-07-10T19:17:24.032645964Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
+
 # Installing on Windows
 
 Incus itself is a Linux daemon - it does not run on Windows. On Windows you run
 the `incus` client and `incus-compose` as **clients** that drive a remote Incus
 server over HTTPS. No Docker and no WSL required.
 
-*Since 1.0.0: Windows has been tested with version 1.0.0, MacOS by the lack of one not yet*
+_Since 1.0.0: Windows has been tested with version 1.0.0, MacOS by the lack of one not yet_
 
 ## Prerequisites
 
@@ -30,7 +31,6 @@ environment variables for your account" -> `Path` -> New). Open a **new** termin
 afterwards so the change takes effect.
 
 ![environment.png](/assets/6qk9CMLDg/environment.png)
-
 
 ## 2. Install the incus client
 
@@ -92,24 +92,11 @@ incus list --all-projects
 
 ![token-auth.png](/assets/6qk9CMLDg/token-auth.png)
 
-## 7. Add OCI image remotes (optional)
-
-To pull container images, register the registries as Incus remotes:
-
-```powershell
-incus remote add --protocol oci docker.io https://docker.io
-incus remote add --protocol oci ghcr.io https://ghcr.io
-incus remote add --protocol oci registry.gitlab.com https://registry.gitlab.com
-```
-
-![remote-list.png](/assets/6qk9CMLDg/remote-list.png)
-
 ## incus-compose in action
 
 ![immich-up.png](/assets/6qk9CMLDg/immich-up.png)
 ![immich-exec.png](/assets/6qk9CMLDg/immich-exec.png)
 ![immich-down.png](/assets/6qk9CMLDg/immich-down.png)
-
 
 ## Notes and limitations
 

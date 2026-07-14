@@ -82,18 +82,6 @@ If you don't want to listen on all interfaces, set the
 `INCUS_COMPOSE_HEALTHD_INCUS` environment variable or call up with
 `--healthd-incus` — see [Network Configuration](/healthd#network-configuration).
 
-### OCI Image Remotes
-
-To pull images from a registry, add it as an Incus remote first. See
-[OCI Registry Cache](/examples/oci-registry-cache) for a caching
-mirror setup.
-
-```bash
-incus remote add --protocol oci docker.io https://docker.io
-incus remote add --protocol oci ghcr.io https://ghcr.io
-incus remote add --protocol oci registry.gitlab.com https://registry.gitlab.com
-```
-
 ## Installation
 
 ### Install script (recommended)
