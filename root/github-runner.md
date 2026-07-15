@@ -45,6 +45,7 @@ there.
 ```bash
 apt install sudo sudo-rs vim golang git shellcheck
 ln -s /usr/sbin/sudo-rs /usr/local/sbin/sudo
+ln -s /usr/share/zoneinfo/Europe/Vienna /etc/timezone
 ```
 
 ## 3. Install Incus from the Zabbly repository — _container (root)_
