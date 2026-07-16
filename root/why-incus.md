@@ -9,7 +9,7 @@ title: Why Incus?
 leafwiki_id: GDzu3_fDR
 leafwiki_title: Why Incus?
 leafwiki_created_at: "2026-07-05T03:54:00.356119734Z"
-leafwiki_updated_at: "2026-07-16T01:00:19.295251403Z"
+leafwiki_updated_at: "2026-07-16T01:06:29.127855596Z"
 leafwiki_creator_id: vOmfrlBDg
 leafwiki_last_author_id: vOmfrlBDg
 ---
@@ -38,7 +38,7 @@ everything:
 - **Containers and VMs** - application containers, system containers, and
   KVM virtual machines from the same command
 - **Networking built in** - managed bridges with DHCP and DNS, no SDN add-on
-- **Storage built in** - ZFS, Btrfs, LVM, or plain directory pools, with
+- **Storage built in** - Ceph, ZFS, Btrfs, LVM, or plain directory pools, with
   snapshots and clones as first-class operations
 - **Images, projects, and clustering** - image cache, multi-tenancy, and
   multi-host scaling, all in the same daemon
