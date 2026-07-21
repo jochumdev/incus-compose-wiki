@@ -658,29 +658,24 @@ services:
   web:
     image: docker.io/nginx:alpine
     ports:
-      - "8080:80"
+      - published: "8081"
+        target: "80"
+        x-incus-compose:
+          nat: true
     networks:
       - frontend
-    x-incus-compose:
-      nat-proxy:
-        - port: 8080 # listen port (matches the published port above)
-          connect: 80 # container port to forward to
-        - port: 8443
-          connect: 443
-          listen: # optional: restrict listen IPs (default: all bridge IPs)
-            - 192.168.1.1
 ```
 
-Each `nat-proxy` entry maps one published port to a container port. `listen` is optional; when
-omitted, incus-compose discovers the bridge IP(s) from the attached network and listens on all of
-them.
+`nat: true` requires Incus 7.2 or later (or the 7.0.1 LTS point release) for ARP/NDP-based
+instance IP detection. Combining `nat: true` with a static instance IP additionally requires
+Incus 7.3 or later (or the 7.0.2 LTS point release) — both unreleased at the time of writing.
 
-Requirements for `nat-proxy`:
-
-- The service must be attached to at least one managed bridge network (a plain `networks:` entry).
-- If no managed NIC is present, incus-compose falls back to userspace and logs a warning.
-- After a manual `incus restart` the nftables rule may become stale; use `incus-compose up` to
-  reapply.
+> **Warning:** with `nat: true`, published ports are not reachable via `localhost`/`127.0.0.1` on
+> the host running incus-compose. The nftables DNAT rules only masquerade traffic for the
+> hairpin case (an instance reaching itself via its own forwarded address); host-loopback traffic
+> keeps its `127.0.0.1` source address, which is dropped or fails to route back. Use the host's
+> real (LAN/bridge) address to reach the port, or stick with the default userspace proxy if you
+> need `localhost` access to work.
 
 ### Network Naming
 
